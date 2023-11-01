@@ -1,0 +1,17 @@
+networks:
+  rede-blue:
+    driver: bridge
+  rede-proxy:
+    external: true
+
+services:
+  blue:
+    image: fabricioveronez/live-color
+    container_name: azul
+    networks:
+      - rede-blue
+      - rede-proxy
+    volumes:
+      - ./index.html:/app/templates/index.html
+    ports:
+      - 9090:80

@@ -1,0 +1,25 @@
+networks:
+  rede-green:
+    driver: bridge
+  rede-proxy:
+    external: true
+
+services:
+  proxy:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - rede-green
+      - rede-proxy
+
+  green:
+    image: fabricioveronez/live-color
+    networks:
+      - rede-green
+    volumes:
+      - ./green/index.html:/app/templates/index.html
+    ports:
+      - 8080:80
